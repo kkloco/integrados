@@ -1,0 +1,105 @@
+<div id="wrapper">
+<div id="row">
+  <div class="col-md-12 center-block" style="float:none;"> 
+    <%= render "partials/navigation" %>
+      <div class="row"> 
+        <div class="margen">
+            <%= link_to "Volver", {controller: "proveedores", action: "show"},{class:"btn btn-primary"} %> 
+          </div>  
+        <div class="col-md-8">
+            <div class="box text-left">
+              <h3>Modificando el proveedor <%= @proveedor.razon_social %></h3>
+                
+                <%= form_for :providers, :url => { :action => :update, :id => @proveedor.id },
+        :method => :put, role:"form" do |f| %>
+                                        
+                          <div class="form-group col-md-3">
+                            <%= f.label :CIF %><br>
+                            <%= f.text_field :CIF, class:"form-control", placeholder:"CIF sin guiones", maxlength:"9", :value => @proveedor.CIF %>
+                          </div>
+
+                          <div class="form-group col-md-9">
+                            <%= f.label :Razón_social %><br>
+                            <%= f.text_field :razon_social, class:"form-control", placeholder:"Nombre del proveedor", :value => @proveedor.razon_social %>
+                          </div>  
+
+                          <div class="form-group col-md-5">
+                            <%= f.label :Persona_de_contacto %><br>
+                            <%= f.text_field :contacto, class:"form-control", placeholder:"Persona de contacto", :value => @proveedor.contacto %>
+                          </div> 
+
+                          <div class="form-group col-md-7">
+                            <%= f.label :Dirección %><br>
+                            <%= f.text_field :direccion, class:"form-control", placeholder:"Dirección completa", :value => @proveedor.direccion %>
+                          </div>   
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :Código_postal %><br>
+                            <%= f.text_field :cod_postal, class:"form-control", placeholder:"Código postal", maxlength:"5", :value => @proveedor.cod_postal %>
+                          </div>  
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :Localidad %><br>
+                            <%= f.text_field :localidad, class:"form-control", placeholder:"Localidad", :value => @proveedor.poblacion %>
+                          </div>  
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :Provincia %><br>
+                            <%= f.text_field :provincia, class:"form-control", placeholder:"Provincia", :value => @proveedor.provincia %>
+                          </div>  
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :Teléfono_1 %><br>
+                            <%= f.text_field :tlf1, class:"form-control", placeholder:"Número sin guiones",maxlength:"9", :value => @proveedor.tlf1 %>
+                          </div>  
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :Teléfono_2 %><br>
+                            <%= f.text_field :tlf2, class:"form-control", placeholder:"Número sin guiones", maxlength:"9", :value => @proveedor.tlf2 %>
+                          </div> 
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :Fax %><br>
+                            <%= f.text_field :fax, class:"form-control", placeholder:"Número sin guiones", maxlength:"9", :value => @proveedor.fax %>
+                          </div> 
+
+                          <div class="form-group col-md-6">
+                            <%= f.label :Web %><br>
+                            <%= f.text_field :web, class:"form-control", placeholder:"Página web", :value => @proveedor.web %>
+                          </div>
+
+                          <div class="form-group col-md-6">
+                            <%= f.label :Mail %><br>
+                            <%= f.text_field :email, class:"form-control", placeholder:"EMail", :value => @proveedor.email %>
+                          </div>
+
+                          <div class="form-group col-md-6">
+                            <%= f.label :Tope_de_gasto %><br>
+                            <%= f.text_field :tope_gasto, class:"form-control", placeholder:"Punto para separar decimales", :value => @proveedor.tope_gasto %><br>
+                          </div>
+                      
+
+                          <div class="actions col-md-7">
+                                <%= f.submit "Modificación de proveedor", class:"btn btn-primary" %>
+                          </div>                         
+                  <% end %>
+            </div>
+        </div>
+        <div id="error"></div>
+        <div class="col-md-4">
+            <% if @proveedor.errors.any? %>
+                <div id="errorExplanation" class="alert alert-danger alert-dismissable">
+                  <h2><%= pluralize(@proveedor.errors.count, "error/es encontrados") %></h2>
+                  <ul>
+                  <% @proveedor.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                  </ul>
+                </div>
+          <% end %>
+
+        </div>
+    </div>
+  </div>
+</div>
+</div>

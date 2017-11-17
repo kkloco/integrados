@@ -1,0 +1,44 @@
+<div id="wrapper">
+	<div id="row">
+	 <div class="col-md-12 center-block" style="float:none;"> 
+	   <%= render "partials/navigation" %>
+	  	<div class="row">
+	        <div class="margen">
+	        	<%= link_to "Nuevo", {controller: "contables", action: "new"},{class:"btn btn-primary"} %> 
+	        </div>	 
+			<div class="col-md-12 center-block" style="float:none;">
+				
+							<table class="table table-striped table-bordered">
+								<thead>
+								<tr class="success">
+									<th>Ejercicio</th>
+									<th>Orden</th>
+									<th>Orden Vale</th>
+									<th>Orden Combustible</th>
+									<th>Activo</th>
+									<th>Opciones</th>
+								</tr>
+								</thead>
+								<tbody>
+							          <% @contables.each do |contable| %> 
+							           <tr>
+							             <td><%= contable.ejercicio %></td>
+							             <td><%= contable.orden %></td>
+							             <td><%= contable.orden_vale %></td>
+							             <td><%= contable.orden_combustible %></td>
+							             <td><%= contable.activo %></td>
+							             <td><%= link_to "Editar", :action => :edit, :id => contable.id %>
+							             <span>|</span> 
+							             <%= link_to "Eliminar", { :action => :destroy, :id => contable.id }, :method => :delete, :data => { :confirm => '¿Seguro que desea eliminar este ejecicio?' } %>
+							             </td>
+							           </tr>
+							          <% end %>
+								</tbody>
+							</table>
+							<%= paginate(@contables) %>
+				
+			</div>			
+		</div>
+	 </div>
+	</div>
+</div>

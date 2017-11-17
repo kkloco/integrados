@@ -1,0 +1,123 @@
+.informe{
+
+  background: #fff;
+}
+
+body{
+    
+
+    font-family: 'Roboto', sans-serif;
+    font-size: 8px;
+ 
+background: #d4e4ef;
+background: -moz-linear-gradient(top, #d4e4ef 0%, #d4e4ef 67%, #86aecc 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, #d4e4ef), color-stop(67%, #d4e4ef), color-stop(100%, #86aecc));
+background: -webkit-linear-gradient(top, #d4e4ef 0%, #d4e4ef 67%, #86aecc 100%);
+background: -o-linear-gradient(top, #d4e4ef 0%, #d4e4ef 67%, #86aecc 100%);
+background: -ms-linear-gradient(top, #d4e4ef 0%, #d4e4ef 67%, #86aecc 100%);
+background: linear-gradient(to bottom, #d4e4ef 0%, #d4e4ef 67%, #86aecc 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E6E6E6', endColorstr='#86aecc', GradientType=0 );
+/*background-repeat: no-repeat;*/
+background-attachment:fixed;
+}
+
+.area{
+
+  width: 150px;
+  overflow: auto;
+  font-size: 11px;
+}
+
+
+#wrapper{
+
+    width: 1060px;
+    margin: 0 auto;
+}
+
+.content{
+    margin: 10px auto;
+    /*border-style: solid;
+    border-width: 5px;
+    border-color: B1BFC2;
+    border-radius: 3px;*/
+
+}
+#login-data{
+    width: 960px;
+    margin: 5px auto;
+    text-align: center;
+    font-size: 10px;  
+}
+
+#primary_nav_wrap
+{
+    margin-top:15px;
+   
+}
+
+.margen{
+    padding-bottom: 15px;
+    padding-left: 15px;
+}
+.borde{
+    
+    border-style: solid;
+    border-width: 1px;
+    border-color: #e7e7e7;
+    border-radius: 3px;
+    padding-left: 15px;
+}
+
+.sesion_id{
+ font-family: 'Roboto', sans-serif;
+ font-size: 11px;
+ color: #86aecc;
+ float: right;   
+}
+
+select:focus{ outline: none;}
+
+
+table tr th {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  table-layout: fixed;
+}
+
+
+
+
+
+
+
+.sorting {
+  background-color: #D4D4D4;
+}
+
+.asc:after {
+  content: ' ↑';
+}
+
+.desc:after {
+  content: " ↓";
+}
+
+.results tr[visible='false'],
+.no-result{
+  display:none;
+}
+
+.results tr[visible='true']{
+  display:table-row;
+}
+
+.counter{
+  padding:8px; 
+  color:#ccc;
+}
+
+

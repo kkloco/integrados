@@ -1,0 +1,50 @@
+<div id="wrapper">
+	<div id="row">
+	 <div class="col-md-12 center-block" style="float:none;"> 
+	   <%= render "partials/navigation" %>
+	  	<div class="row">
+	        <div class="margen">
+	        	<%= link_to "Nuevo", {controller: "combustible", action: "new"},{class:"btn btn-primary"} %> 
+	        	<% if current_user.rol == "ADMINISTRADOR" %>
+	        		<%= link_to "Ver todas", {controller: "combustible", action: "show", :id => 1},{class:"btn btn-primary"} %> 
+	        	<%end%>
+	        	<%= link_to "Consultas", {controller: "combustible", action: "queries"},{class:"btn btn-primary"} %> 
+	        </div>	 
+			<div class="col-md-12 center-block" style="float:none;">
+				
+							<table class="table table-striped table-bordered">
+								<thead>
+								<tr class="success">
+									<th>NumVale</th>
+									<th>Matricula</th>
+									<th>Proveedore</th>
+									<th>Concepto</th>
+									<th>Importe</th>
+									<th>Opciones</th>
+								</tr>
+								</thead>
+								<tbody>
+							          <% @vales_comb.each do |vale| %> 
+							           <tr>
+							             <td><%= vale.numcomb %></td>
+							             <td><%= vale.matricula %></td>
+							             <td><%= vale.proveedor %></td>
+							             <td><%= vale.concepto %></td>
+							             <td><%= vale.importe %></td>
+							             <td><%= link_to "Editar", :action => :edit, :numcomb => vale.numcomb %>
+							             <span>|</span> 
+							             <%= link_to "Eliminar", { :action => :destroy, :numcomb => vale.numcomb}, :method => :delete, :data => { :confirm => '¿Seguro que desea eliminar el vale de combustible?' } %>
+							             <span>|</span> 
+							             <%= link_to "Imprimir", :action => :view_pdf, :numcomb => vale.numcomb, :format => "pdf" %>
+							             </td>
+							           </tr> 
+							          <% end %>
+								</tbody>
+							</table>
+							<%= paginate(@vales_comb) %>
+				
+			</div>			
+		</div>
+	 </div>
+	</div>
+</div>

@@ -1,0 +1,109 @@
+<div id="wrapper">
+<div id="row">
+  <div class="col-md-12 center-block" style="float:none;"> 
+    <%= render "partials/navigation" %>
+      <div class="row"> 
+        <div class="margen">
+            <%= link_to "Volver", {controller: "concejalias", action: "show"},{class:"btn btn-primary"} %> 
+          </div>  
+        <div class="col-md-8">
+            <div class="box text-left">
+              <h3>Nueva concejalía:</h3>
+
+                  <%= form_for :councils, :url => { :action => :create }, role:"form" do |f| %>
+                          
+                          <div class="form-group">
+                            <%= f.label :nombre %><br>
+                            <%= f.text_field :nombre, class:"form-control", placeholder:"Nombre completo" %>
+                          </div>
+
+                          <div class="form-group">
+                            <%= f.label :responsable %><br>
+                            <%= f.collection_select :id_responsable, User.where(["cargo = ? or cargo = ?", "CONCEJAL/A", "ALCALDE/SA"]), :id, :nombre, {}, {:onchange => "check();"} %>
+                          </div>
+
+                          <div class="form-group">
+                          
+                           <%= f.hidden_field :responsable, :id => "responsable" %>
+                            
+                          </div>
+
+                          <div class="actions">
+                                <%= f.submit "Alta de concejalía", class:"btn btn-primary" %>
+                          </div>                         
+                  <% end %>
+            </div>
+        </div>
+        <div id="error"></div>
+        <div class="col-md-4">
+            <% if @concejalia.errors.any? %>
+                <div id="errorExplanation" class="alert alert-danger alert-dismissable">
+                  <h2><%= pluralize(@concejalia.errors.count, "error/es encontrados") %></h2>
+                  <ul>
+                  <% @concejalia.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                  </ul>
+                </div>
+          <% end %>
+
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+  
+    function check() {
+         
+
+         $("#councils_id_responsable").ready(function(){
+         var id = $("#councils_id_responsable").val();
+    
+         $.ajax({
+            url: "/main/return_nombre/" + id,
+            dataType: "JSON",
+            timeout: 10000,
+            
+            error: function(){
+               $("#error").html("Error al intentar buscar el nombre. Por favor intente más tarde.");
+            },
+            success: function(res){
+               if(res){
+                  $("#responsable").val(res.nombre);
+               }else{
+                  $("#error").html("No hay datos");
+               }
+            }
+     })
+  });        
+
+
+
+         $("#councils_id_responsable").change(function(){
+         var id = $("#councils_id_responsable").val();
+    
+         $.ajax({
+            url: "/main/return_nombre/" + id,
+            dataType: "JSON",
+            timeout: 10000,
+            
+            error: function(){
+               $("#error").html("Error al intentar buscar el nombre. Por favor intente más tarde.");
+            },
+            success: function(res){
+               if(res){
+                  $("#responsable").val(res.nombre);
+               }else{
+                  $("#error").html("No hay datos");
+               }
+            }
+     })
+  });        
+}
+
+$(document).ready(function(){
+   check();
+});
+
+</script>

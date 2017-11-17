@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title> Propuesta.pdf </title>
+	<%= wicked_pdf_stylesheet_link_tag ("style.css") %>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+
+</head>
+<body class="informe">
+  <%= wicked_pdf_image_tag ("logo.jpg")  %>
+  
+<div id="row">
+    <div class="col-md-12 center-block"> 
+         
+            <div class="panel panel-primary">
+
+               <div class="panel-heading"> 
+
+               			<h3 class="panel-title" style="text-align: center;"> ANEXO III - PROPUESTA DE GASTO</h3> 
+               			<span style="text-align:right; font-size: 10px;"> Propuesta número: <%= @propuesta.numprop %> </span>	
+               	</div>
+
+               <div class="panel-body">
+                  
+                    <table class="table table-bordered" style="word-break: break-all;">
+								
+									<tr>
+										<th>Proyecto</th>
+										<td> <%= @propuesta.proyecto %> </td>
+									</tr>
+
+									<tr">
+										<th>Departamento</th>
+										<td> <%= @propuesta.departamento %> </td>
+									</tr>
+
+									<tr>
+										<th>Número RC</th>
+										<td> <%= @propuesta.rc %> </td>
+									</tr>
+
+									<tr>
+										<th>Tercero</th>
+										<td> <%= @propuesta.tercero %> </td>
+									</tr>
+
+									<tr>
+										<th>NIF / CIF</th>
+										<td> <%= @propuesta.cif %> </td>
+									</tr>
+
+									<tr>
+										<th>Modal. Contrato</th>
+										<td> <%= @propuesta.contrato %> </td>
+									</tr>
+
+									<tr>
+										<th>Acuerdos</th>
+										<td> <%= @propuesta.acuerdos %> </td>
+									</tr>
+
+									<tr>
+										<th>Convenios</th>
+										<td> <%= @propuesta.convenios %> </td>
+									</tr>
+
+									<tr>
+										<th>otros</th>
+										<td> <%= @propuesta.otros %> </td>
+									</tr>
+
+									<tr>
+										<th colspan="2">Finalidad</th>
+									</tr>
+
+									<tr>
+									  <td colspan="2" class="col-md-4"> <%= @propuesta.finalidad %> </td>
+									</tr>
+
+									<tr>
+										<th colspan="2">Objeto</th>
+									</tr>
+
+									<tr>
+									  <td colspan="2" class="area"> <%= @propuesta.objeto %> </td>
+									</tr>
+
+									<tr>
+										<th>Importe</th>
+										<td> <%= @propuesta.importe %> </td>
+									</tr>
+
+									<tr>
+										<th>Empleado responsable</th>
+										<th>Responsable político</th>
+									</tr>
+
+									<tr>
+									  <td> <%= @propuesta.empleado_firma %> </td>
+									  <td> <%= @propuesta.politico_firma %> </td>
+									</tr>
+
+					</table>
+
+               </div>
+            
+            </div>
+
+            <div class="panel-footer panel-primary">
+                  <div class="panel-heading"> <h3 class="panel-title"> OBSERVACIONES</h3> </div>
+
+	               <div class="panel-body">
+	                  1. La gestión del gasto se asustará al procedimiento administrativo establecido en la normativa vigente.<br>
+	                  2. La ejecución del presupuesto de gasto exigirá tramitación del correspondiente expediente de gasto, de acuerdo a la base 26.<br>
+	                  3. A esta propuesta deberá acompañar el informe acreditativo de la necesidad, conveniencia y oportunidad de la realización del gasto.<br>
+	               </div>
+            </div>
+    </div>
+</div>
+
+
+</body>
+</html>

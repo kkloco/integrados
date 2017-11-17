@@ -1,0 +1,225 @@
+<div id="wrapper">
+<div id="row">
+  <div class="col-md-12 center-block" style="float:none;"> 
+    <%= render "partials/navigation" %>
+      <div class="row"> 
+        <div class="margen">
+            <%= link_to "Volver", {controller: "combustible", action: "show"},{class:"btn btn-primary"} %> 
+            
+          </div>  
+        <div class="col-md-12">
+
+            <div class="panel panel-primary">
+
+               <div class="panel-heading"> <h3 class="panel-title">Modificar vale de combustible nº: <%= @vale.numcomb %></h3> </div>
+
+               <div class="panel-body">
+
+                  <%= form_for :gas, :url => { :action => :update, :numcomb => @vale.numcomb},:method => :put, :html =>{role:"form", id:"form_prop"} do |f| %>
+
+                        
+                  		  <div class="row">
+                          
+                          <div class="form-group col-md-2">
+                            <%= f.label :ejercicio %><br>
+                            <%= f.collection_select :year, Ecyear.where(["activo = 1"]), :ejercicio, :ejercicio, {:selected => @vale.year} %>
+                          </div>
+
+                          
+                          <div class="form-group col-md-3">
+                            <%= f.label :matricula %><br>
+                            <%= f.collection_select :matricula, Car.order(:matricula), :matricula, :matricula, {:selected => @vale.matricula}, {} %>
+                          </div>
+
+                          <div class="form-group col-md-3">
+                            <%= f.label :departamento %><br>
+                            <%= f.collection_select :dep_id, Council.all, :id, :nombre, {:selected => @vale.dep_id}, {:onchange => "check();"} %>
+                          </div>
+
+                        </div>  
+                          
+                        <div class="row">
+                                                
+                          <div class="form-group col-md-6">
+                            <%= f.label :proveedor %><br>
+                            <%= f.collection_select :id_prov, Provider.order(:razon_social), :id, :razon_social,{:selected => @vale.id_prov}, {:onchange => "check();"} %>
+                          </div>
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :concepto %><br>
+                            <%= f.text_field :concepto, class:"form-control", placeholder:"Concepto", :value =>@vale.concepto %>
+                          </div>
+
+                          
+                          <div class="form-group col-md-2">
+                            <%= f.label :importe %><br>
+                            <%= f.text_field :importe, class:"form-control", placeholder:"importe", :value =>@vale.importe %>
+                          </div>
+
+                        </div>
+
+                     	<div class="form-group">
+                              <%= f.hidden_field :proveedor, class:"form-control", placeholder:"Tercero" %>
+                        </div>
+
+                        <div class="form-group">
+                              <%= f.hidden_field :departamento, class:"form-control", placeholder:"departamento" %>
+                        </div>
+	
+
+                          <div class="actions">
+                                <%= f.submit "Modificar vale", class:"btn btn-primary", :id =>"btnEnviar" %>
+                          </div>                         
+                  <% end %>
+                 
+
+               </div>
+            </div>
+            <div class="panel-footer panel-primary">
+                  <div class="row">
+                    <div class="col-md-12">
+                        <% if @vale.errors.any? %>
+                            <div id="errorExplanation" class="alert alert-danger alert-dismissable">
+                              <h2><%= pluralize(@vale.errors.count, "error/es encontrados") %></h2>
+                              <ul>
+                              <% @vale.errors.full_messages.each do |msg| %>
+                                <li><%= msg %></li>
+                              <% end %>
+                              </ul>
+                            </div>
+                      <% end %>
+
+                    </div>        
+                  </div>
+
+            </div>
+        </div>
+        <div id="error"></div>
+
+    </div>
+
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+  
+function check() {
+
+
+        $("#gas_dep_id").ready(function(){
+         
+                   var id = $("#gas_dep_id").val();
+              
+                   
+
+                   $.ajax({
+                      url: "/concejalias/return_nombre/" + id,
+                      dataType: "JSON",
+                      timeout: 10000,
+                      
+                      error: function(){
+                         $("#error").html("Error al intentar buscar el nombre. Por favor intente más tarde.");
+                      },
+                      success: function(res){
+                         if(res){
+                            
+                            $("#gas_departamento").val(res.nombre);
+
+                         }else{
+                            $("#error").html("No hay datos");
+                         }
+                      }
+               })
+        });        
+
+
+         $("#gas_dep_id").change(function(){
+         
+               var id = $("#gas_dep_id").val();
+          
+               
+
+               $.ajax({
+                  url: "/concejalias/return_nombre/" + id,
+                  dataType: "JSON",
+                  timeout: 10000,
+                  
+                  error: function(){
+                     $("#error").html("Error al intentar buscar el nombre. Por favor intente más tarde.");
+                  },
+                  success: function(res){
+                     if(res){
+                        
+                        $("#gas_departamento").val(res.nombre);
+
+                     }else{
+                        $("#error").html("No hay datos");
+                     }
+                  }
+           })
+        }); 
+         
+
+         $("#gas_id_prov").ready(function(){
+         
+                   var id = $("#gas_id_prov").val();
+              
+                   
+
+                   $.ajax({
+                      url: "/proveedores/return_nombre/" + id,
+                      dataType: "JSON",
+                      timeout: 10000,
+                      
+                      error: function(){
+                         $("#error").html("Error al intentar buscar el nombre. Por favor intente más tarde.");
+                      },
+                      success: function(res){
+                         if(res){
+                            
+                            $("#gas_proveedor").val(res.razon_social);
+                            
+                         }else{
+                            $("#error").html("No hay datos");
+                         }
+                      }
+               })
+        });        
+
+
+         $("#gas_id_prov").change(function(){
+         
+               var id = $("#gas_id_prov").val();
+          
+               
+
+               $.ajax({
+                  url: "/proveedores/return_nombre/" + id,
+                  dataType: "JSON",
+                  timeout: 10000,
+                  
+                  error: function(){
+                     $("#error").html("Error al intentar buscar el nombre. Por favor intente más tarde.");
+                  },
+                  success: function(res){
+                     if(res){
+                        
+                        $("#gas_proveedor").val(res.razon_social);
+                        
+                     }else{
+                        $("#error").html("No hay datos");
+                     }
+                  }
+           })
+        }); 
+
+
+       
+}
+
+$(document).ready(function(){
+   check();
+  
+});
+
+</script>

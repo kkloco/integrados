@@ -1,0 +1,91 @@
+<div id="wrapper">
+<div id="row">
+  <div class="col-md-12 center-block" style="float:none;"> 
+    <%= render "partials/navigation" %>
+      <div class="row"> 
+        <div class="margen">
+            <%= link_to "Volver", {controller: "main", action: "show"},{class:"btn btn-primary"} %> 
+          </div>  
+        <div class="col-md-8">
+            <div class="box text-left">  
+		      	<h3>Modificando el usuario <%= @usuario.nombre %></h3><br>      	
+				             
+			
+				<%= form_for :users, :url => { :action => :update, :id => @usuario.id },
+				:method => :put, role:"form" do |f| %>
+
+									  
+				  <div class="form-group">
+				    <%= f.label :nombre %><br>
+				    <%= f.text_field :nombre, :value => @usuario.nombre, class:"form-control" %>
+				  </div>
+
+				  <div class="form-group">
+				    <%= f.label :dni %><br>
+				    <%= f.text_field :dni, :value => @usuario.dni, class:"form-control" %>
+				  </div>
+
+				  <div class="form-group">
+		                 <%= f.label :cargo %><br>
+		                 <%= f.collection_select :cargo, Position.all, :nombre, :nombre, 
+		                  {:selected => @usuario.cargo , :class => 'form-control'} %>
+		          </div>
+
+				  <div class="form-group">
+				    <%= f.label :rol %><br>
+				    <%= f.select(:rol, ['ADMINISTRADOR', 'CONSULTOR', 'GESTOR', 'GESTOR_PA', 'GESTOR_PO'], :selected => @usuario.rol, class:"form-control") %>
+				  </div>
+
+				  <div class="form-group">
+				    <%= f.label :email %><br>
+				    <%= f.email_field :email, :value => @usuario.email, class:"form-control" %>
+				  </div>
+
+				  <div class="form-group">
+                            <%= f.label :Concejalías %><br>
+                            <% if (!@concejalias.nil?) %>
+	                            <% @concejalias.each do |concejalia| %>
+	                               <%= check_box_tag "concejalias[]" , concejalia.id, @usuario.councils.include?(@usuario.id) %><%= concejalia.nombre %>
+	                            <%end%>   
+	                        <% end %>    
+                          </div>
+
+				  <div class="form-group col-md-4">
+                              
+                        <%= f.hidden_field :password,:value => @usuario.encrypted_password, class:"form-control", placeholder:"Firma politico"%>
+                  </div>
+		 
+
+				  <div class="actions">
+		            <%= f.submit "Actualizar datos", class:"btn btn-primary" %>
+		          </div>
+				  
+				<% end %>
+            </div>
+        </div>
+        <div class="col-md-4">
+        	<div id="concej_acceso" class="alert alert-warning alert-dismissable">
+		      		<h4>Concejalías a las que accede:</h4>
+		      		<ul>
+               			<%@usuario.councils.each do |concejalia| %>
+                 			<li><strong><%= concejalia.nombre %></strong></li>
+               			<%end%>	
+               		</ul>	
+		      	</div>
+
+            <% if @usuario.errors.any? %>
+                <div id="errorExplanation" class="alert alert-danger alert-dismissable">
+                  <h2><%= pluralize(@usuario.errors.count, "error/es encontrados") %></h2>
+                  <ul>
+                  <% @usuario.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                  </ul>
+                </div>
+          <% end %>
+
+        </div>
+    </div>
+  </div>
+</div>
+</div>

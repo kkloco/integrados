@@ -1,0 +1,45 @@
+<div id="wrapper">
+	<div id="row">
+	 <div class="col-md-12 center-block" style="float:none;"> 
+	   <%= render "partials/navigation" %>
+	  	<div class="row">
+	        <div class="margen">
+	        	<%= link_to "Nuevo", {controller: "vehiculos", action: "new"},{class:"btn btn-primary"} %> 
+	        	
+	        </div>	 
+			<div class="col-md-12 center-block" style="float:none;">
+				
+							<table class="table table-striped table-bordered">
+								<thead>
+								<tr class="success">
+									<th>Matricula</th>
+									<th>Localización</th>
+									<th>Conductor habitual</th>
+									<th>Finalidad</th>
+									<th>Opciones</th>
+								</tr>
+								</thead>
+								<tbody>
+							          <% @coches.each do |coche| %> 
+							           <tr>
+							             <td><%= coche.matricula %></td>
+							             <td><%= coche.localizacion %></td>
+							             <td><%= coche.conductor %></td>
+							             <td><%= coche.finalidad %></td>
+							             
+							             <td><%= link_to "Editar", :action => :edit, :matricula => coche.matricula %>
+							             <span>|</span> 
+							             <%= link_to "Eliminar", { :action => :destroy, :matricula => coche.matricula}, :method => :delete, :data => { :confirm => '¿Seguro que desea eliminar el vehículo?' } %>
+							             							             
+							             </td>
+							           </tr> 
+							          <% end %>
+								</tbody>
+							</table>
+							<%= paginate(@coches) %>
+				
+			</div>			
+		</div>
+	 </div>
+	</div>
+</div>

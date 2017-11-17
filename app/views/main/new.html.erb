@@ -1,0 +1,101 @@
+<div id="wrapper">
+<div id="row">
+  <div class="col-md-12 center-block" style="float:none;"> 
+    <%= render "partials/navigation" %>
+      <div class="row"> 
+        <div class="margen">
+            <%= link_to "Volver", {controller: "main", action: "show"},{class:"btn btn-primary"} %> 
+          </div>  
+        <div class="col-md-12">
+            
+
+            <div class="panel panel-primary">
+
+               <div class="panel-heading"> <h3 class="panel-title">Nuevo usuario:</h3> </div>
+
+               <div class="panel-body">
+                  <%= form_for :users, :url => { :action => :create }, role:"form" do |f| %>
+                        <div class="row">
+                          
+                          <div class="form-group col-md-4">
+                            <%= f.label :nombre %><br>
+                            <%= f.text_field :nombre, class:"form-control", placeholder:"Nombre completo" %>
+                          </div>
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :dni %><br>
+                            <%= f.text_field :dni,  class:"form-control", placeholder:"DNI sin espacios ni guiones" %>
+                          </div>
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :cargo %><br>
+                            <%= f.collection_select :cargo, Position.all, :nombre, :nombre, :class => 'form-control' %>
+                          </div>
+
+                        </div>    
+
+                        <div class="row">
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :rol %><br>
+                            <%= f.select :rol, options_for_select(['ADMINISTRADOR', 'CONSULTOR', 'GESTOR', 'GESTOR_PA', 'GESTOR_PO']), :class => 'form-control' %>
+                            
+                          </div>
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :email %><br>
+                            <%= f.email_field :email, class:"form-control", placeholder:"Email" %>
+                          </div>
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :clave %><br>
+                            <%= f.password_field :password, class:"form-control", placeholder:"Mínimo 6 caracteres" %>
+                          </div>
+
+                        </div>  
+
+                        <div class="row">
+
+                          <div class="form-group col-md-12">
+                            <%= f.label :Concejalías %><br>
+                            <% if (!@concejalias.nil?) %>
+                                  <% @concejalias.each do |concejalia| %>
+                                  
+                                        <%= check_box_tag "concejalias[]", concejalia.id %><%= concejalia.nombre %>
+                                    <% end %>
+                             
+                            <% end %>    
+                          </div>
+
+                          <div class="actions">
+                                <%= f.submit "Alta de usuario", class:"btn btn-primary" %>
+                          </div>                         
+
+                         </div> 
+                  <% end %>
+            </div>
+        </div>
+        <div class="panel-footer panel-primary">
+                  <div class="row">
+                    <div class="col-md-12">
+                        <% if @usuario.errors.any? %>
+                            <div id="errorExplanation" class="alert alert-danger alert-dismissable">
+                              <h2><%= pluralize(@usuario.errors.count, "error/es encontrados") %></h2>
+                              <ul>
+                              <% @usuario.errors.full_messages.each do |msg| %>
+                                <li><%= msg %></li>
+                              <% end %>
+                              </ul>
+                            </div>
+                      <% end %>
+
+                    </div>
+                  </div>
+        </div>
+    </div>
+        <div id="error"></div>
+  </div>
+  </div>
+  </div>
+  </div>
+    

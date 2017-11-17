@@ -1,0 +1,124 @@
+<nav  class="navbar navbar-default" role="navigation">
+	    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse"
+		            data-target=".navbar-ex1-collapse">
+		      <span class="sr-only">Desplegar navegación</span>
+		      <span class="icon-bar"></span>
+		      <span class="icon-bar"></span>
+		      <span class="icon-bar"></span>
+		    </button>
+            <a class="navbar-brand" href="#">INTEGRA 1.0</a>
+  </div>
+	
+<!-- Agrupar los enlaces de navegación, los formularios y cualquier
+       otro elemento que se pueda ocultar al minimizar la barra -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+
+    <!-- Menú Aplicación -->
+       <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-home"></i>
+          Aplicación <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+           <%= link_to "Salir", destroy_user_session_path, method: :delete %>
+        </ul>
+      </li>
+ 
+    <!-- Menú Propuestas de compra -->
+       <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-folder-open-alt"></i>
+            Propuestas de gasto <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%= link_to "Ver", controller: "propuestas", action: "show" %></li>
+          <li><%= link_to "Consultas", controller: "propuestas", action: "queries" %></li>
+        </ul>
+      </li>
+    <!-- Menú Vales de compra -->
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-money"></i>
+          Vales de compra <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%= link_to "Ver", controller: "vales", action: "show" %></li>
+          <li><%= link_to "Consultas", controller: "vales", action: "queries" %></li>
+        </ul>
+      </li>
+    <!-- Menú Tablas -->
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-table"></i>
+          Tablas<b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <% if current_user.rol == "ADMINISTRADOR" || current_user.rol == "GESTOR_PA"  %>  
+            <li><%= link_to "Vales de combustible", controller: "combustible", action: "show" %></li>
+          <%end%>  
+          <li><%= link_to "Proveedores", controller: "proveedores", action: "show" %></li>
+          <li><%= link_to "Vehiculos", controller: "vehiculos", action: "show" %></li>
+        </ul>
+      </li>
+
+    <!-- Menú configuracion -->
+     <% if current_user.rol == "ADMINISTRADOR" %>	
+			    	<li class="dropdown">
+			    	   <a  href="#" class="dropdown-toggle" data-toggle="dropdown">
+			    	   	   <i class="icon-cog"></i>
+			    	        Configuración<b class="caret"></b>
+			    	   </a>
+			    		<ul class="dropdown-menu">
+			    			<li><%= link_to "Usuarios", controller: "main", action: "show" %></li>
+                <li><%= link_to "Concejalías", controller: "concejalias", action: "show" %></li>
+			    			<li><%= link_to "Cargos", controller: "cargos", action: "show" %></li>
+                <li><%= link_to "Ejercicios", controller: "contables", action: "show" %></li>
+			    		</ul>
+			    	</li>
+	  <% end %> 	
+    </ul> 
+        <% if user_signed_in? %>
+          <span class="sesion_id">
+            Sesión iniciada por <%= current_user.dni %> <%= current_user.nombre %>, conectado como <%= current_user.cargo %> el <%= current_user.current_sign_in_at %> 
+          </span>
+      <% end %>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+	<!--	   <ul>
+		   	  <li><a href="#"><i class="icon-home"></i>Aplicación</a>
+			 	  <ul>
+			 	     <%= link_to "Salir", destroy_user_session_path, method: :delete %>
+			 	  </ul>
+			  </li>
+		  	  <li><a  href="#"><i class="icon-folder-open-alt"></i>Propuestas de gasto</a></li>
+		  	  <li><a  href="#"><i class="icon-money"></i>Vales de compra</a></li>
+		  	  <li><a  href="#"><i class="icon-shopping-cart"></i>Gestión de pedidos</a></li>
+	       	  <li><a  href="#"><i class="icon-tasks"></i>Tablas</a></li>
+		  	  <% if current_user.rol == "ADMINISTRADOR" %>	
+			    	<li><a  href="#"><i class="icon-cog"></i>Configuración</a>
+			    		<ul>
+			    			<li><%= link_to "Usuarios", controller: "main", action: "show" %></li>
+			    		</ul>
+			    	</li>
+			  <% end %> 	
+		  </ul>
+		</nav>	  
+    
+	<div class="row center-xs middle-xs">
+			 <% if user_signed_in? %>
+		            <span>
+						Usuario actual: <%= current_user.nombre %>, conectado como <%= current_user.cargo %> 
+						DNI: <%= current_user.dni %>	
+					</span>
+			<% end %>
+	</div>  -->
+
+
+

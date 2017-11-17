@@ -1,0 +1,48 @@
+<div id="wrapper">
+<div id="row">
+  <div class="col-md-12 center-block" style="float:none;"> 
+    <%= render "partials/navigation" %>
+      <div class="row"> 
+        <div class="margen">
+            <%= link_to "Volver", {controller: "cargos", action: "show"},{class:"btn btn-primary"} %> 
+          </div>  
+        <div class="col-md-8">
+            <div class="box text-left">  
+    
+		      	<h3>Modificando el cargo <%= @cargo.nombre %></h3>
+			
+			
+				<%= form_for :positions, :url => { :action => :update, :id => @cargo.id },
+				:method => :put, role: "form" do |f| %>
+		   
+				           <div class="form-group">
+			                  <%= f.label :nombre %><br>
+			                  <%= f.text_field :nombre, value:@cargo.nombre,  class:"form-control" %>
+			                </div>
+
+			                <div class="actions">
+			                    <%= f.submit "Actualizar datos", class:"btn btn-primary", name:"alta_cargo" %>
+			                </div>
+				  
+				<% end %>
+			</div>
+        </div>
+        <div class="col-md-4">
+				<% if @cargo.errors.any? %>
+				    <div id="errorExplanation">
+					    <h2><%= pluralize(@cargo.errors.count, "error/es encontrados") %></h2>
+					    <ul>
+					    <% @cargo.errors.full_messages.each do |msg| %>
+					      <li><%= msg %></li>
+					    <% end %>
+					    </ul>
+					 </div>
+			    <% end %>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+

@@ -1,0 +1,50 @@
+<div id="wrapper">
+	<div id="row">
+	 <div class="col-md-12 center-block" style="float:none;"> 
+	   <%= render "partials/navigation" %>
+	  	<div class="row">
+	        <div class="margen">
+	        	<%= link_to "Nuevo", {controller: "vales", action: "new"},{class:"btn btn-primary"} %> 
+	        	<% if current_user.rol == "ADMINISTRADOR" %>
+	        		<%= link_to "Ver todas", {controller: "vales", action: "show", :id => 1},{class:"btn btn-primary"} %> 
+	        	<%end%>
+	        </div>	 
+			<div class="col-md-12 center-block" style="float:none;">
+				
+							<table class="table table-striped table-bordered">
+								<thead>
+								<tr class="success">
+									<th>NumVale</th>
+									<th>NumProp</th>
+									<th>Tercero</th>
+									<th>Departamento</th>
+									<th>Importe</th>
+									<th>Opciones</th>
+								</tr>
+								</thead>
+								<tbody>
+							          <% @vales.each do |vale| %> 
+							           <tr>
+							             <td><%= vale.numvale %></td>
+							             <td><%= vale.numprop %></td>
+							             <td><%= vale.tercero %></td>
+							             <td><%= vale.departamento %></td>
+							             <td><%= vale.importe %></td>
+							             <td><%= link_to "Editar", :action => :edit, :id => vale.id %>
+							             <span>|</span> 
+							             <%= link_to "Eliminar", { :action => :destroy, :id => vale.id}, :method => :delete, :data => { :confirm => '¿Seguro que desea eliminar el vale de compra?' } %>
+							             <span>|</span> 
+							             <%= link_to "Imprimir", :action => :view_pdf, :id => vale.id, :format => "pdf" %>
+							             </td>
+							           </tr> 
+							          <% end %>
+								</tbody>
+							</table>
+							<%= paginate(@vales) %>
+				
+			</div>			
+		</div>
+	 </div>
+	</div>
+</div>
+

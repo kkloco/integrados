@@ -1,0 +1,50 @@
+<div id="wrapper">
+	<div id="row">
+	 <div class="col-md-12 center-block" style="float:none;"> 
+	   <%= render "partials/navigation" %>
+	  	<div class="row">
+	        <div class="margen">
+	        	<%= link_to "Nuevo", {controller: "propuestas", action: "new"},{class:"btn btn-primary"} %> 
+	        	<% if current_user.rol == "ADMINISTRADOR" %>
+	        		<%= link_to "Ver todas", {controller: "propuestas", action: "show", :id => 1},{class:"btn btn-primary"} %> 
+	        	<%end%>
+	        </div>	 
+			<div class="col-md-12 center-block" style="float:none;">
+				
+							<table class="table table-striped table-bordered">
+								<thead>
+								<tr class="success">
+									<th>Num_propuesta</th>
+									<th>Año</th>
+									<th>Tercero</th>
+									<th>Departamento</th>
+									<th>Importe</th>
+									<th>Opciones</th>
+								</tr>
+								</thead>
+								<tbody>
+							          <% @propuestas.each do |propuesta| %> 
+							           <tr>
+							             <td><%= propuesta.numprop %></td>
+							             <td><%= propuesta.year %></td>
+							             <td><%= propuesta.tercero %></td>
+							             <td><%= propuesta.departamento %></td>
+							             <td><%= propuesta.importe %></td>
+							             <td><%= link_to "Editar", :action => :edit, :id => propuesta.id %>
+							             <span>|</span> 
+							             <%= link_to "Eliminar", { :action => :destroy, :id => propuesta.id }, :method => :delete, :data => { :confirm => '¿Seguro que desea eliminar la propuesta?' } %>
+							             <span>|</span> 
+							             <%= link_to "Imprimir", :action => :view_pdf, :id => propuesta.id, :format => "pdf" %>
+							             </td>
+							           </tr>
+							          <% end %>
+								</tbody>
+							</table>
+							<%= paginate(@propuestas) %>
+				
+			</div>			
+		</div>
+	 </div>
+	</div>
+</div>
+

@@ -1,0 +1,86 @@
+<div id="wrapper">
+<div id="row">
+  <div class="col-md-12 center-block" style="float:none;"> 
+    <%= render "partials/navigation" %>
+      <div class="row"> 
+        <div class="margen">
+            <%= link_to "Volver", {controller: "contables", action: "show"},{class:"btn btn-primary"} %> 
+          </div>  
+        <div class="col-md-4">
+            <div class="box text-left">
+              <h3>Nuevo ejercicio:</h3>
+
+                  <%= form_for :ecyears, :url => { :action => :create }, role:"form" do |f| %>
+                          
+                          <div class="form-group">
+                            <%= f.label :ejercicio %><br>
+                            <%= f.text_field :ejercicio, class:"form-control", placeholder:"Año contable" %>
+                          </div>
+
+                          <div class="form-group">
+                            <%= f.label :orden %><br>
+                            <%= f.text_field :orden, class:"form-control numero", :value => "1", :onchange => "checkOrden();"  %>
+                          </div>
+
+                          <div class="form-group">
+                            <%= f.label :orden_vale %><br>
+                            <%= f.text_field :orden_vale, class:"form-control numero", :value => "1", :onchange => "checkOrdenVale();"  %>
+                          </div>
+
+                          <div class="form-group">
+                            <%= f.label :orden_combustible %><br>
+                            <%= f.text_field :orden_combustible, class:"form-control numero", :value => "1", :onchange => "checkOrdenVale();"  %>
+                          </div>
+
+
+                          <div class="form-group">
+                            <%= f.label :activo %>
+                            <%= f.number_field :activo, in: 0..1, class:"form-control numero", :value => "1" %> 
+                          </div>                       
+
+                          <div class="actions">
+                                <%= f.submit "Alta de ejercicio", class:"btn btn-primary" %>
+                          </div>                         
+                  <% end %>
+            </div>
+        </div>
+        <div id="error"></div>
+        <div class="col-md-4">
+            <% if @contable.errors.any? %>
+                <div id="errorExplanation" class="alert alert-danger alert-dismissable">
+                  <h2><%= pluralize(@contable.errors.count, "error/es encontrados") %></h2>
+                  <ul>
+                  <% @contable.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                  </ul>
+                </div>
+          <% end %>
+
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script type="text/javascript">
+ 
+        $("#ecyears_ejercicio").focusout(function(){
+           var numero = $("#ecyears_ejercicio").val();
+           var ejerc_actual = (new Date).getFullYear();
+              if ((numero < 0) || (numero < ejerc_actual)){
+                alert ('Valor incorrecto para el ejercicio');
+                $("#ecyears_ejercicio").val("");
+
+
+              }
+
+        });     
+
+
+$(document).ready(function(){
+  // check();
+   
+});
+
+</script>

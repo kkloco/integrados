@@ -1,0 +1,42 @@
+<div id="wrapper">
+	<div id="row">
+	 <div class="col-md-12 center-block" style="float:none;"> 
+	   <%= render "partials/navigation" %>
+	  	<div class="row">
+	        <div class="margen">
+	        	<%= link_to "Nuevo", {controller: "concejalias", action: "new"},{class:"btn btn-primary"} %> 
+	        </div>	 
+			<div class="col-md-12 center-block" style="float:none;">
+				
+							<table class="table table-striped table-bordered">
+								<thead>
+								<tr class="success">
+									<th>Concejalía</th>
+									
+									<th>Responsable político</th>
+									<th>Opciones</th>
+								</tr>
+								</thead>
+								<tbody>
+							          <% @concejalias.each do |concejalia| %> 
+							           <tr>
+							             <td><%= concejalia.nombre %></td>
+							             
+							             <td><%= concejalia.responsable %></td>
+							             <td><%= link_to "Editar", :action => :edit, :id => concejalia.id %>
+							             <span>|</span> 
+							             <%= link_to "Eliminar", { :action => :destroy, :id => concejalia.id }, :method => :delete, :data => { :confirm => '¿Seguro que desea eliminar la concejalía?' } %>
+							             </td>
+							           </tr>
+							          <% end %>
+								</tbody>
+							</table>
+							<%= paginate(@concejalias) %>
+				
+			</div>			
+		</div>
+	 </div>
+	</div>
+</div>
+
+

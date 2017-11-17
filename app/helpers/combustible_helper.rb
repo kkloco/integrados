@@ -1,0 +1,2 @@
+module CombustibleHelper
+end

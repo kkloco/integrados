@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  CIF,razon_social,contacto,direccion,cod_postal: 
+  poblacion,: MyString
+  provincia,tlf1: 
+
+two:
+  CIF,razon_social,contacto,direccion,cod_postal: 
+  poblacion,: MyString
+  provincia,tlf1: 

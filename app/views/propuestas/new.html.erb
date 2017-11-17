@@ -1,0 +1,288 @@
+<div id="wrapper">
+<div id="row">
+  <div class="col-md-12 center-block" style="float:none;"> 
+    <%= render "partials/navigation" %>
+      <div class="row"> 
+        <div class="margen">
+            <%= link_to "Volver", {controller: "propuestas", action: "show"},{class:"btn btn-primary"} %> 
+            
+          </div>  
+        <div class="col-md-12">
+
+            <div class="panel panel-primary">
+
+               <div class="panel-heading"> <h3 class="panel-title">Nueva propuesta:</h3> </div>
+
+               <div class="panel-body">
+                  <%= form_for :proposals, :url => { :action => :create }, :html =>{role:"form", id:"form_prop"} do |f| %>
+                        <div class="row">
+                          
+                          <div class="form-group col-md-2">
+                            <%= f.label :ejercicio %><br>
+                            <%= f.collection_select :year, Ecyear.where(["activo = 1"]), :ejercicio, :ejercicio %>
+                          </div>
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :proyecto %><br>
+                            <%= f.text_field :proyecto, class:"form-control", placeholder:"Proyecto" %>
+                          </div>
+
+                          <div class="form-group col-md-6">
+                            <%= f.label :departamento %><br>
+                            <%= f.collection_select :dep_id, Council.joins(:joins).where("joins.user_id = ?", current_user.id), :id, :nombre, {}, {:onchange => "check();"} %>
+                          </div>
+
+                        </div>  
+                          
+                        <div class="row">
+                                                
+                          <div class="form-group col-md-6">
+                            <%= f.label :tercero %><br>
+                            <%= f.collection_select :ter_id, Provider.order(:razon_social), :id, :razon_social, {}, {:onchange => "check();"} %>
+                          </div>
+
+                          <div class="form-group col-md-3">
+                            <%= f.label :partida_presupuestaria %><br>
+                            <%= f.text_field :partida, class:"form-control", placeholder:"Partida presupuestaria" %>
+                          </div>
+
+                          
+                          <div class="form-group col-md-3">
+                            <%= f.label :rc %><br>
+                            <%= f.text_field :rc, class:"form-control", placeholder:"rc", :maxlength => 12 %>
+                          </div>
+
+                        </div>
+
+                        <div class="row">
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :contrato %><br>
+                            <%= f.text_field :contrato, class:"form-control", placeholder:"Tipo de contrato" %>
+                          </div>
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :acuerdos %><br>
+                            <%= f.text_field :acuerdos, class:"form-control", placeholder:"Existen acuerdos" %>
+                          </div>
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :convenios %><br>
+                            <%= f.text_field :convenios, class:"form-control", placeholder:"Convenio de referencia" %>
+                          </div>
+                          
+                        </div>    
+
+                        <div class="row">
+
+                          <div class="form-group col-md-12">
+                            <%= f.label :otros %><br>
+                            <%= f.text_field :otros, class:"form-control", placeholder:"Otros datos de interés" %>
+                          </div>
+
+                        </div>  
+
+                        <div class="row">
+                                                    
+                          <div class="form-group col-md-6">
+                            <%= f.label :finalidad %><br>
+                            <%= f.text_area :finalidad, class:"form-control", :rows => 5, :cols => 50 %>
+                          </div>
+
+                          <div class="form-group col-md-6">
+                            <%= f.label :objeto %><br>
+                            <%= f.text_area :objeto, class:"form-control", :rows => 5 %>
+                          </div>
+
+                        </div>                    
+
+                        <div class="row">
+                                                    
+                          <div class="form-group col-md-4">
+                            <%= f.label :importe %><br>
+                            <%= f.text_field :importe, class:"form-control", placeholder:"Separar por puntos los decimales", :value =>"0.0" %>
+                          </div>
+
+                          <div class="form-group col-md-4">
+                            <%= f.label :empleado_responsable %><br>
+                            <%= f.collection_select :empleado_firma, User.all, :nombre, :nombre, {:selected => current_user.nombre} %>
+                          </div>
+
+                          <div class="form-group col-md-4">
+                              
+                              <%= f.hidden_field :politico_firma, class:"form-control", placeholder:"Firma politico"%>
+                          </div>
+                        
+
+                        </div>                    
+
+                          <!-- ******************** CAMPOS OCULTOS -->
+                          
+                          <div class="form-group">
+                              <%= f.hidden_field :tercero, class:"form-control", placeholder:"Tercero" %>
+                          </div> 
+                                                    
+                          <div class="form-group col-md-2">
+                              
+                              <%= f.hidden_field :cif, class:"form-control", placeholder:"CIF Tercero" %>
+                          </div>
+
+                          <div class="form-group">
+                              <%= f.hidden_field :departamento, class:"form-control", placeholder:"Departamento" %>
+                          </div>
+
+                           
+                          <div class="actions">
+                                <%= f.submit "Alta de propuesta", class:"btn btn-primary", :id =>"btnEnviar" %>
+                          </div>                         
+                  <% end %>
+                 
+
+               </div>
+            </div>
+            <div class="panel-footer panel-primary">
+                  <div class="row">
+                    <div class="col-md-12">
+                        <% if @propuesta.errors.any? %>
+                            <div id="errorExplanation" class="alert alert-danger alert-dismissable">
+                              <h2><%= pluralize(@propuesta.errors.count, "error/es encontrados") %></h2>
+                              <ul>
+                              <% @propuesta.errors.full_messages.each do |msg| %>
+                                <li><%= msg %></li>
+                              <% end %>
+                              </ul>
+                            </div>
+                      <% end %>
+
+                    </div>        
+                  </div>
+
+            </div>
+        </div>
+        <div id="error"></div>
+
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script type="text/javascript">
+  
+function check() {
+
+
+         $("#proposals_dep_id").ready(function(){
+         
+                   var id = $("#proposals_dep_id").val();
+              
+                   
+
+                   $.ajax({
+                      url: "/concejalias/return_nombre/" + id,
+                      dataType: "JSON",
+                      timeout: 10000,
+                      
+                      error: function(){
+                         $("#error").html("Error al intentar buscar el nombre. Por favor intente más tarde.");
+                      },
+                      success: function(res){
+                         if(res){
+                            
+                            $("#proposals_politico_firma").val(res.responsable);
+                            $("#proposals_departamento").val(res.nombre);
+                         }else{
+                            $("#error").html("No hay datos");
+                         }
+                      }
+               })
+        });        
+
+
+         $("#proposals_dep_id").change(function(){
+         
+               var id = $("#proposals_dep_id").val();
+          
+               
+
+               $.ajax({
+                  url: "/concejalias/return_nombre/" + id,
+                  dataType: "JSON",
+                  timeout: 10000,
+                  
+                  error: function(){
+                     $("#error").html("Error al intentar buscar el nombre. Por favor intente más tarde.");
+                  },
+                  success: function(res){
+                     if(res){
+                        
+                        $("#proposals_politico_firma").val(res.responsable);
+                        $("#proposals_departamento").val(res.nombre);
+                     }else{
+                        $("#error").html("No hay datos");
+                     }
+                  }
+           })
+        }); 
+
+
+         $("#proposals_ter_id").ready(function(){
+         
+               var id = $("#proposals_ter_id").val();
+          
+               
+
+               $.ajax({
+                    url: "/proveedores/return_nombre/" + id,
+                    dataType: "JSON",
+                    timeout: 10000,
+                    
+                    error: function(){
+                       $("#error").html("Error al intentar buscar el nombre. Por favor intente más tarde.");
+                    },
+                    success: function(res){
+                       if(res){
+                          
+                          $("#proposals_tercero").val(res.razon_social);
+                          $("#proposals_cif").val(res.cif);
+                       }else{
+                          $("#error").html("No hay datos");
+                       }
+                    }
+                })
+        });        
+
+        $("#proposals_ter_id").change(function(){
+         
+               var id = $("#proposals_ter_id").val();
+            
+               
+
+               $.ajax({
+                  url: "/proveedores/return_nombre/" + id,
+                  dataType: "JSON",
+                  timeout: 10000,
+                  
+                  error: function(){
+                     $("#error").html("Error al intentar buscar el nombre. Por favor intente más tarde.");
+                  },
+                  success: function(res){
+                     if(res){
+                        
+                        $("#proposals_tercero").val(res.razon_social);
+                        $("#proposals_cif").val(res.cif);
+                     }else{
+                        $("#error").html("No hay datos");
+                     }
+                  }
+           })
+      });  
+       
+}
+
+$(document).ready(function(){
+   check();
+  
+});
+
+</script>
